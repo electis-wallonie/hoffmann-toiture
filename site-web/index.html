@@ -36,6 +36,13 @@
   .devis-input[aria-invalid="true"] { box-shadow: inset 0 0 0 2px #DC2626; background: #FEF2F2; }
   #devis-modal.is-open { display: flex; }
   #mobile-menu.is-open { display: block; }
+
+  /* Bandeau cookies */
+  .cookie-banner { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 90; max-width: 560px; margin: 0 auto; background: #fff; color: #1B232C; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.25); padding: 16px 18px; font-size: .9rem; line-height: 1.45; }
+  .cookie-banner[hidden] { display: none; }
+  .cookie-actions { display: flex; gap: 10px; margin-top: 12px; }
+  .cookie-actions button { flex: 1; padding: 10px; font-weight: 600; border-radius: 4px; background: #26313D; color: #fff; }
+  .cookie-actions button:hover { background: #1B232C; }
 </style>
 </head>
 <body class="bg-white text-slate-800 antialiased selection:bg-red-600 selection:text-white">
@@ -322,6 +329,7 @@
       <span>·</span><a class="hover:underline" href="#realisations">Réalisations</a>
       <span>·</span><a class="hover:underline" href="#">Mentions légales</a>
       <span>·</span><a class="hover:underline" href="#">Confidentialité</a>
+      <span>·</span><button class="hover:underline" data-cookie-settings type="button">Gérer les cookies</button>
     </div>
   </div>
   <div class="border-t border-white/10 pt-6">
@@ -543,7 +551,8 @@
         'Nom': form.nom.value,
         email: form.email.value,
         'Téléphone': form.telephone.value,
-        'Code postal du chantier': form.code_postal.value
+        'Code postal du chantier': form.code_postal.value,
+        'Source': window.hoffmannSource ? window.hoffmannSource() : 'Inconnue'
       };
 
       submitBtn.disabled = true; submitBtn.textContent = 'Envoi…';
@@ -555,6 +564,7 @@
         });
         const json = await res.json().catch(() => ({}));
         if (!res.ok || json.success === false) throw new Error(json.message || ('HTTP ' + res.status));
+        if (window.hoffmannLead) window.hoffmannLead();
         showStep(3);
       } catch (err) {
         showError("L'envoi n'a pas fonctionné. Réessayez ou appelez-nous au 06 72 44 92 46.");
@@ -562,6 +572,73 @@
         submitBtn.disabled = false; submitBtn.textContent = 'Envoyer';
       }
     });
+  })();
+</script>
+<!-- ================= BANDEAU COOKIES + PIXEL META ================= -->
+<div aria-label="Cookies" class="cookie-banner" hidden id="cookie-banner" role="dialog">
+  <p>Nous utilisons un cookie de mesure Facebook (pixel Meta) pour savoir combien de demandes de devis viennent de nos publicités. Il n'est déposé que si vous l'acceptez.</p>
+  <div class="cookie-actions">
+    <button data-cookie-refuse type="button">Refuser</button>
+    <button data-cookie-accept type="button">Accepter</button>
+  </div>
+</div>
+<script>
+  (() => {
+    const PIXEL_ID = '1191665407142163';
+    const KEY = 'hoffmann_cookies';
+
+    // Provenance du visiteur (ajoutée à chaque demande de devis)
+    try {
+      const p = new URLSearchParams(location.search);
+      const src = p.get('utm_source') || (p.get('fbclid') ? 'facebook' : '') || (p.get('gclid') ? 'google' : '');
+      if (src) {
+        const camp = p.get('utm_campaign');
+        sessionStorage.setItem('hoffmann_source', src + (camp ? ' / ' + camp : ''));
+      } else if (!sessionStorage.getItem('hoffmann_source')) {
+        let r = 'Direct';
+        if (document.referrer && !document.referrer.includes(location.hostname)) {
+          try { r = new URL(document.referrer).hostname; } catch (e) {}
+        }
+        sessionStorage.setItem('hoffmann_source', r);
+      }
+    } catch (e) {}
+    window.hoffmannSource = () => {
+      try { return sessionStorage.getItem('hoffmann_source') || 'Direct'; } catch (e) { return 'Inconnue'; }
+    };
+
+    // Pixel Meta, chargé seulement après accord
+    let loaded = false;
+    function loadPixel() {
+      if (loaded) return;
+      loaded = true;
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', PIXEL_ID);
+      fbq('track', 'PageView');
+    }
+    window.hoffmannLead = () => { if (loaded && window.fbq) fbq('track', 'Lead'); };
+
+    const banner = document.getElementById('cookie-banner');
+    const getChoice = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+    const setChoice = v => { try { localStorage.setItem(KEY, v); } catch (e) {} };
+    const choice = getChoice();
+    if (choice === 'accepte') loadPixel();
+    else if (choice !== 'refuse') banner.hidden = false;
+
+    banner.querySelector('[data-cookie-accept]').addEventListener('click', () => {
+      setChoice('accepte'); banner.hidden = true; loadPixel();
+    });
+    banner.querySelector('[data-cookie-refuse]').addEventListener('click', () => {
+      setChoice('refuse'); banner.hidden = true;
+      if (loaded) location.reload();
+    });
+    document.querySelectorAll('[data-cookie-settings]').forEach(b => b.addEventListener('click', () => { banner.hidden = false; }));
   })();
 </script>
 </body>
