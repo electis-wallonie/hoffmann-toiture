@@ -439,13 +439,11 @@
 </script>
 <script>
   // ============================================================
-  // ENVOI DU FORMULAIRE
-  // Collez ici l'adresse de votre formulaire Formspree (ou autre),
-  // ex : 'https://formspree.io/f/abcdwxyz'.
-  // Laissé vide : ouvre la messagerie du visiteur vers DEVIS_EMAIL.
+  // ENVOI DU FORMULAIRE via Web3Forms (https://web3forms.com)
+  // Les demandes arrivent par email à l'adresse liée à cette clé.
   // ============================================================
-  const FORM_ENDPOINT = '';
-  const DEVIS_EMAIL = 'piterhoffemann@gmail.com';
+  const FORM_ENDPOINT = 'https://api.web3forms.com/submit';
+  const WEB3FORMS_KEY = '5acaaeb2-08fa-43cd-8914-72b8f3c79ada';
 
   (() => {
     const modal = document.getElementById('devis-modal');
@@ -536,26 +534,17 @@
       if (form.site_web.value) { showStep(3); return; }
 
       const data = {
-        type_de_bien: choice.bien,
-        travaux: choice.travaux,
-        prenom: form.prenom.value,
-        nom: form.nom.value,
+        access_key: WEB3FORMS_KEY,
+        subject: `Demande de devis toiture – ${form.prenom.value} ${form.nom.value} (${form.code_postal.value})`,
+        from_name: 'Site Hoffmann Toiture',
+        'Type de bien': choice.bien,
+        'Travaux': choice.travaux,
+        'Prénom': form.prenom.value,
+        'Nom': form.nom.value,
         email: form.email.value,
-        telephone: form.telephone.value,
-        code_postal: form.code_postal.value,
-        _subject: `Demande de devis toiture – ${form.prenom.value} ${form.nom.value} (${form.code_postal.value})`
+        'Téléphone': form.telephone.value,
+        'Code postal du chantier': form.code_postal.value
       };
-
-      if (!FORM_ENDPOINT) {
-        const body = [
-          `Type de bien : ${data.type_de_bien}`, `Travaux : ${data.travaux}`, '',
-          `Prénom : ${data.prenom}`, `Nom : ${data.nom}`, `Email : ${data.email}`,
-          `Téléphone : ${data.telephone}`, `Code postal du chantier : ${data.code_postal}`
-        ].join('\n');
-        window.location.href = `mailto:${DEVIS_EMAIL}?subject=${encodeURIComponent(data._subject)}&body=${encodeURIComponent(body)}`;
-        showStep(3);
-        return;
-      }
 
       submitBtn.disabled = true; submitBtn.textContent = 'Envoi…';
       try {
@@ -564,7 +553,8 @@
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(data)
         });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || json.success === false) throw new Error(json.message || ('HTTP ' + res.status));
         showStep(3);
       } catch (err) {
         showError("L'envoi n'a pas fonctionné. Réessayez ou appelez-nous au 06 72 44 92 46.");
