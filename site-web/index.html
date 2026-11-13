@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hoffmann Toiture - Couvreur à Caen | Toiture, Zinguerie, Démoussage</title>
+<meta name="description" content="Hoffmann Toiture, couvreur zingueur à Caen et dans le Calvados : rénovation et réparation de toiture, zinguerie, nettoyage et démoussage, ravalement. Devis gratuit."/>
+<link href="css/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
+<script src="js/lucide.min.js"></script>
+<style>
+  .font-condensed { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
+  body { font-family: 'Inter', sans-serif; color: #334155; }
+
+  /* Avant / après */
+  .slider-container { position: relative; overflow: hidden; user-select: none; }
+  .slider-img { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .slider-overlay { position: absolute; top: 0; left: 0; bottom: 0; width: 50%; overflow: hidden; }
+  .slider-overlay > * { position: absolute; top: 0; left: 0; height: 100%; max-width: none; pointer-events: none; }
+  .slider-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #fff; transform: translateX(-50%); pointer-events: none; }
+  .slider-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 32px; height: 32px; border-radius: 9999px; background: #D62828; border: 2px solid #fff; box-shadow: 0 4px 6px -1px rgba(0,0,0,.25); display: flex; align-items: center; justify-content: center; color: #fff; }
+  .ph { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: .5rem; text-align: center; font-size: .85rem; font-weight: 600; }
+  .ph-before { background: repeating-linear-gradient(135deg, #5B6470 0 14px, #535C67 14px 28px); color: #E2E8F0; }
+  .ph-after { background: repeating-linear-gradient(135deg, #3A4756 0 14px, #34404E 14px 28px); color: #fff; }
+
+  /* Fenêtre de devis */
+  .devis-opt { background: #fff; color: #1B232C; font-size: 1rem; padding: 1.15rem .5rem; transition: background-color .15s, color .15s; }
+  .devis-opt:hover { background: #FDECEC; }
+  .devis-opt[aria-pressed="true"] { background: #D62828; color: #fff; font-weight: 600; }
+  .devis-opt:focus-visible, .devis-btn:focus-visible { outline: 3px solid #26313D; outline-offset: -3px; }
+  .devis-input { width: 100%; border: 0; background: #fff; padding: 1.05rem 1.1rem; font-size: 1rem; color: #1B232C; }
+  .devis-input::placeholder { color: #6B7280; }
+  .devis-input:focus { outline: none; box-shadow: inset 0 0 0 2px #D62828; }
+  .devis-input[aria-invalid="true"] { box-shadow: inset 0 0 0 2px #DC2626; background: #FEF2F2; }
+  #devis-modal.is-open { display: flex; }
+  #mobile-menu.is-open { display: block; }
+</style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-red-600 selection:text-white">
+
+<!-- ================= EN-TÊTE ================= -->
+<header class="w-full bg-white border-b border-slate-100 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <!-- Logo provisoire (à remplacer par votre logo) -->
+    <a aria-label="Hoffmann Toiture, accueil" class="flex items-center gap-3 shrink-0" href="#">
+      <svg class="w-11 h-11" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <rect width="48" height="48" rx="6" fill="#26313D"/>
+        <path d="M7 26 L24 11 L41 26" stroke="#D62828" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13 25 V37 H35 V25" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/>
+        <rect x="31" y="12" width="5" height="9" fill="#fff"/>
+      </svg>
+      <span class="flex flex-col leading-none">
+        <span class="font-condensed text-2xl font-bold text-brand-slate tracking-tight">Hoffmann</span>
+        <span class="font-condensed text-xs font-bold text-brand-red tracking-[0.3em] mt-0.5">Toiture</span>
+      </span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-7 text-[15px] font-medium text-slate-700">
+      <a class="hover:text-brand-red transition-colors" href="#prestations">Prestations</a>
+      <a class="hover:text-brand-red transition-colors" href="#realisations">Réalisations</a>
+      <a class="hover:text-brand-red transition-colors" href="#garantie">Garantie</a>
+      <a class="hover:text-brand-red transition-colors" href="#zones">Zone d'intervention</a>
+      <a class="hover:text-brand-red transition-colors" href="#contact">Contact</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a class="hidden sm:inline-flex items-center gap-2 border-2 border-brand-slate px-4 py-2 rounded text-brand-slate font-semibold text-sm hover:bg-brand-slate hover:text-white transition" href="tel:0672449246">
+        <i class="w-4 h-4" data-lucide="phone"></i><span>06 72 44 92 46</span>
+      </a>
+      <a class="inline-flex items-center whitespace-nowrap bg-brand-red hover:bg-brand-redHover text-white font-semibold text-sm px-4 sm:px-5 py-2.5 rounded shadow transition active:scale-95" data-open-devis href="#devis">Devis gratuit</a>
+      <button aria-controls="mobile-menu" aria-expanded="false" aria-label="Menu" class="lg:hidden p-2 -mr-2 text-brand-slate" id="menu-toggle" type="button">
+        <i class="w-6 h-6" data-lucide="menu"></i>
+      </button>
+    </div>
+  </div>
+  <!-- Menu mobile -->
+  <nav class="hidden lg:hidden border-t border-slate-100 bg-white" id="mobile-menu">
+    <div class="px-4 py-3 flex flex-col text-base font-medium text-slate-700">
+      <a class="py-2.5" href="#prestations">Prestations</a>
+      <a class="py-2.5" href="#realisations">Réalisations</a>
+      <a class="py-2.5" href="#garantie">Garantie</a>
+      <a class="py-2.5" href="#zones">Zone d'intervention</a>
+      <a class="py-2.5" href="#contact">Contact</a>
+      <a class="py-2.5 font-semibold text-brand-red" href="tel:0672449246">Appeler le 06 72 44 92 46</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="relative bg-gradient-to-b from-brand-light to-white py-14 md:py-20 overflow-hidden border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+    <div class="lg:col-span-6">
+      <p class="font-condensed text-sm font-semibold tracking-[0.2em] text-brand-red mb-3">Couvreur · Zingueur · Caen</p>
+      <h1 class="font-condensed text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-brand-slate leading-[1.08] mb-5">
+        Toiture et couverture <span class="text-brand-red">à Caen</span>
+      </h1>
+      <p class="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
+        Réparation, rénovation, zinguerie et démoussage de toiture. On intervient avec notre camion nacelle à Caen et dans tout le Calvados.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-red hover:bg-brand-redHover text-white font-semibold px-7 py-3.5 rounded shadow-md transition active:scale-95" href="tel:0672449246">
+          <i class="w-4 h-4" data-lucide="phone"></i><span>Appeler maintenant</span>
+        </a>
+        <a class="w-full sm:w-auto inline-flex items-center justify-center border-2 border-brand-slate bg-white hover:bg-slate-50 text-brand-slate font-semibold px-8 py-3.5 rounded transition" data-open-devis href="#devis">Devis gratuit</a>
+      </div>
+    </div>
+    <div class="lg:col-span-6 flex justify-center lg:justify-end">
+      <!-- VISUEL CAMION -->
+      <figure class="relative w-full max-w-[680px] drop-shadow-xl">
+        <img alt="Camion M. Hoffmann couvreur zingueur, Maître Artisan" class="w-full h-auto" height="491" width="1200" src="images/camion-hoffmann.webp"/>
+
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRESTATIONS ================= -->
+<section class="py-16 md:py-24 bg-white" id="prestations">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mb-12">
+      <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold text-brand-slate mb-4">Tout ce qui se passe <span class="text-brand-red">au-dessus de votre tête</span></h2>
+      <p class="text-slate-600 text-base sm:text-lg leading-relaxed">De la tuile cassée à la réfection complète, une seule entreprise s'occupe de votre toit, de vos gouttières et de votre façade.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-red flex flex-col">
+        <img alt="Chantier de couverture Hoffmann sur une maison à Caen" class="w-full h-48 object-cover" loading="lazy" src="images/couverture-chantier.jpg"/>
+        <div class="p-6">
+          <h3 class="font-condensed text-xl font-bold text-brand-slate mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-red" data-lucide="house"></i>Couverture</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Réparation de fuites, remplacement de tuiles et d&#39;ardoises, rénovation ou réfection complète de toiture.</p>
+        </div>
+      </article>
+      <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-red flex flex-col">
+        <img alt="Noue en zinc posée entre deux pans de tuiles" class="w-full h-48 object-cover" loading="lazy" src="images/zinguerie-noue.jpg"/>
+        <div class="p-6">
+          <h3 class="font-condensed text-xl font-bold text-brand-slate mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-red" data-lucide="droplets"></i>Zinguerie</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Gouttières, descentes, chéneaux, noues, abergements de cheminée : pose, remplacement et réparation.</p>
+        </div>
+      </article>
+      <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-red flex flex-col">
+        <img alt="Nettoyage de toiture et de façade" class="w-full h-48 object-cover" loading="lazy" src="images/nettoyage.jpg"/>
+        <div class="p-6">
+          <h3 class="font-condensed text-xl font-bold text-brand-slate mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-red" data-lucide="sparkles"></i>Nettoyage et démoussage</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Démoussage, nettoyage et traitement de toiture, de façade et de dallage pour protéger durablement.</p>
+        </div>
+      </article>
+      <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-red flex flex-col">
+        <img alt="Façade jaune après ravalement" class="w-full h-48 object-cover" loading="lazy" src="images/ravalement-apres.jpg"/>
+        <div class="p-6">
+          <h3 class="font-condensed text-xl font-bold text-brand-slate mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-red" data-lucide="paint-roller"></i>Ravalement et peinture</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Ravalement de façade et peinture extérieure, avec la nacelle pour travailler en hauteur en sécurité.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DEVIS ================= -->
+<section class="py-16 md:py-24 bg-brand-light" id="devis">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold text-brand-slate mb-6">Votre devis, <span class="text-brand-red">sans surprise</span></h2>
+    <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">Une fuite, des tuiles qui bougent, de la mousse sur le toit ? On vient voir sur place, on inspecte la toiture et vous recevez un chiffrage clair :</p>
+    <ul class="space-y-3.5 mb-8 text-base text-slate-800">
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-red mt-2 shrink-0"></span><span>Un rappel rapide pour caler la visite</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-red mt-2 shrink-0"></span><span>Une inspection de la toiture sur place</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-red mt-2 shrink-0"></span><span>Un devis détaillé, poste par poste</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-red mt-2 shrink-0"></span><span>Nos attestations d'assurance jointes au devis</span></li>
+    </ul>
+    <a class="inline-block bg-brand-red hover:bg-brand-redHover text-white font-semibold text-base px-8 py-3.5 rounded shadow-sm transition active:scale-95" data-open-devis href="#devis">Demander mon devis</a>
+  </div>
+</section>
+
+<!-- ================= RÉALISATIONS (AVANT / APRÈS) ================= -->
+<section class="bg-brand-slate py-16 md:py-24 text-white" id="realisations">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Nos chantiers avant / après</h2>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">Des photos de nos vrais chantiers. Faites glisser le curseur pour comparer.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
+        <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
+          <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
+          <span class="absolute top-3 right-3 z-20 bg-brand-red text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
+          <img alt="Cheminée habillée avec abergement zinc neuf" class="slider-img" loading="lazy" src="images/cheminee-apres.jpg"/>
+          <div class="slider-overlay"><img alt="Souche de cheminée avec tuiles cassées avant travaux" class="slider-img" loading="lazy" src="images/cheminee-avant.jpg"/></div>
+          <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
+        </div>
+        <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
+          <h3 class="font-condensed font-bold text-brand-slate text-lg leading-tight">Abergement de cheminée en zinc</h3>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
+        <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
+          <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
+          <span class="absolute top-3 right-3 z-20 bg-brand-red text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
+          <img alt="Façade jaune après ravalement" class="slider-img" loading="lazy" src="images/ravalement-apres.jpg"/>
+          <div class="slider-overlay"><img alt="Façade défraîchie avant ravalement, camion nacelle Hoffmann" class="slider-img" loading="lazy" src="images/ravalement-avant.jpg"/></div>
+          <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
+        </div>
+        <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
+          <h3 class="font-condensed font-bold text-brand-slate text-lg leading-tight">Ravalement de façade</h3>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
+        <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
+          <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
+          <span class="absolute top-3 right-3 z-20 bg-brand-red text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
+          <img alt="Pignon en pierre propre après nettoyage" class="slider-img" loading="lazy" src="images/facade-pierre-apres.jpg"/>
+          <div class="slider-overlay"><img alt="Pignon en pierre encrassé avant nettoyage" class="slider-img" loading="lazy" src="images/facade-pierre-avant.jpg"/></div>
+          <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
+        </div>
+        <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
+          <h3 class="font-condensed font-bold text-brand-slate text-lg leading-tight">Nettoyage de façade en pierre</h3>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
+        <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
+          <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Pendant</span>
+          <span class="absolute top-3 right-3 z-20 bg-brand-red text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
+          <img alt="Toiture en tuiles neuves après rénovation" class="slider-img" loading="lazy" src="images/toiture-apres.jpg"/>
+          <div class="slider-overlay"><img alt="Toiture découverte pendant la rénovation" class="slider-img" loading="lazy" src="images/toiture-pendant.jpg"/></div>
+          <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
+        </div>
+        <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
+          <h3 class="font-condensed font-bold text-brand-slate text-lg leading-tight">Rénovation de toiture</h3>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="font-condensed text-2xl sm:text-3xl font-bold mb-6">Sur nos chantiers</h3>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+      <figure class="relative overflow-hidden rounded-lg group ">
+        <img alt="Intervention à la nacelle" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/nacelle-chantier.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">Intervention à la nacelle</figcaption>
+      </figure>
+      <figure class="relative overflow-hidden rounded-lg group ">
+        <img alt="Lucarne habillée en zinc" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/lucarne-zinc.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">Lucarne habillée en zinc</figcaption>
+      </figure>
+      <figure class="relative overflow-hidden rounded-lg group ">
+        <img alt="Toiture en tuiles plates" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/toiture-echelle.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">Toiture en tuiles plates</figcaption>
+      </figure>
+      <figure class="relative overflow-hidden rounded-lg group ">
+        <img alt="Ravalement et rive de toit" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/facade-apres.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">Ravalement et rive de toit</figcaption>
+      </figure>
+      <figure class="relative overflow-hidden rounded-lg group ">
+        <img alt="Ravalement sous échafaudage" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/echafaudage.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">Ravalement sous échafaudage</figcaption>
+      </figure>
+      <figure class="relative overflow-hidden rounded-lg group ">
+        <img alt="Façade remise à neuf" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/ravalement-maison.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">Façade remise à neuf</figcaption>
+      </figure>
+      <figure class="relative overflow-hidden rounded-lg group ">
+        <img alt="Pignon avant ravalement" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/facade-avant.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">Pignon avant ravalement</figcaption>
+      </figure>
+      <figure class="relative overflow-hidden rounded-lg group ">
+        <img alt="La nacelle en position sur une maison" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/nacelle-maison.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">La nacelle en position</figcaption>
+      </figure>
+    </div>
+    <div class="flex justify-center">
+      <a class="px-7 py-3 rounded bg-brand-red hover:bg-brand-redHover text-white font-semibold text-sm shadow-md transition active:scale-95" data-open-devis href="#devis">Devis gratuit</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GARANTIE ================= -->
+<section class="py-16 md:py-24 bg-white" id="garantie">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-5 gap-8 items-stretch">
+    <figure class="md:col-span-2 relative rounded-lg overflow-hidden shadow-lg min-h-[340px]">
+      <img alt="L'équipe Hoffmann devant le camion nacelle" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="images/equipe.jpg"/>
+      <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent text-white px-5 pt-10 pb-4">
+        <span class="font-condensed text-xl font-bold block">Une équipe locale</span>
+        <span class="text-sm text-white/85">Basée à Cormelles-le-Royal, à côté de Caen</span>
+      </figcaption>
+    </figure>
+    <div class="md:col-span-3 flex flex-col gap-6">
+      <div class="bg-brand-light rounded-r-lg p-8 border-l-[6px] border-brand-red flex-1">
+        <h3 class="font-condensed font-bold text-2xl sm:text-3xl text-brand-slate mb-3">En hauteur, en sécurité</h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">Notre camion nacelle nous permet d'accéder à votre toit sans abîmer vos tuiles ni votre jardin, et de travailler vite et proprement, même sur les toitures hautes.</p>
+      </div>
+      <div class="bg-brand-light rounded-r-lg p-8 border-l-[6px] border-brand-red flex-1">
+        <h3 class="font-condensed font-bold text-2xl sm:text-3xl text-brand-slate mb-3">Une garantie écrite</h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">Nos travaux de couverture sont couverts par notre assurance décennale. Les attestations d'assurance sont jointes à votre devis, noir sur blanc.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PIED DE PAGE ================= -->
+<footer class="bg-brand-slateDark text-white pt-16 pb-8" id="contact">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+    <div class="flex items-center gap-3 mb-6">
+      <svg class="w-12 h-12" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <rect width="48" height="48" rx="6" fill="#fff"/>
+        <path d="M7 26 L24 11 L41 26" stroke="#D62828" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13 25 V37 H35 V25" stroke="#26313D" stroke-width="3.5" stroke-linejoin="round"/>
+        <rect x="31" y="12" width="5" height="9" fill="#26313D"/>
+      </svg>
+      <span class="flex flex-col leading-none text-left">
+        <span class="font-condensed text-2xl font-bold">Hoffmann</span>
+        <span class="font-condensed text-xs font-bold text-red-400 tracking-[0.3em] mt-0.5">Toiture</span>
+      </span>
+    </div>
+    <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold mb-8">Un toit sain, une maison au sec</h2>
+    <div class="flex flex-wrap items-center justify-center gap-4 mb-10 w-full sm:w-auto">
+      <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-red hover:bg-brand-redHover text-white font-semibold text-base px-8 py-3.5 rounded shadow transition active:scale-95" href="tel:0672449246">
+        <i class="w-4 h-4" data-lucide="phone"></i><span>06 72 44 92 46</span>
+      </a>
+      <a class="w-full sm:w-auto inline-flex items-center justify-center bg-white hover:bg-slate-100 text-brand-red font-semibold text-base px-9 py-3.5 rounded shadow transition" data-open-devis href="#devis">Devis gratuit</a>
+    </div>
+    <p class="text-slate-300 text-sm font-medium mb-1" id="zones">Zone d'intervention</p>
+    <p class="text-slate-200 text-sm mb-6 max-w-2xl">Caen, Cormelles-le-Royal, Ifs, Mondeville, Hérouville-Saint-Clair, Fleury-sur-Orne, Bretteville-sur-Odon, Colombelles et tout le Calvados</p>
+    <div class="text-slate-400 text-xs sm:text-sm flex flex-wrap items-center justify-center gap-2 mb-12">
+      <a class="hover:underline" href="mailto:piterhoffemann@gmail.com">piterhoffemann@gmail.com</a>
+      <span>·</span><a class="hover:underline" href="#realisations">Réalisations</a>
+      <span>·</span><a class="hover:underline" href="#">Mentions légales</a>
+      <span>·</span><a class="hover:underline" href="#">Confidentialité</a>
+    </div>
+  </div>
+  <div class="border-t border-white/10 pt-6">
+    <p class="text-center font-condensed text-xs sm:text-sm tracking-wider text-slate-500">Hoffmann Toiture 2026 · Cormelles-le-Royal (14123)</p>
+  </div>
+</footer>
+
+<!-- ================= FENÊTRE DE DEVIS ================= -->
+<div aria-labelledby="devis-title" aria-modal="true" class="fixed inset-0 z-[100] hidden items-start sm:items-center justify-center overflow-y-auto px-4 py-8" id="devis-modal" role="dialog">
+  <div class="fixed inset-0 bg-slate-900/60" data-close-devis></div>
+  <div class="relative w-full max-w-xl">
+    <div class="bg-[#F2F2F2] rounded-md overflow-hidden shadow-2xl">
+      <div class="bg-brand-slateDark px-6 sm:px-8 py-5 flex items-center justify-between">
+        <h2 class="font-condensed text-2xl sm:text-3xl font-bold text-white" id="devis-title">Votre projet</h2>
+        <button aria-label="Fermer" class="devis-btn text-white/90 hover:text-white p-1 -mr-1 rounded" data-close-devis type="button"><i class="w-7 h-7" data-lucide="x"></i></button>
+      </div>
+      <form class="px-6 sm:px-8 py-7" id="devis-form" novalidate>
+        <input aria-hidden="true" autocomplete="off" class="hidden" name="site_web" tabindex="-1" type="text"/>
+        <!-- Étape 1 -->
+        <div data-step="1">
+          <fieldset class="mb-6">
+            <legend class="text-lg font-bold text-slate-900 mb-3">Quel type de bien ?</legend>
+            <div class="grid grid-cols-2 gap-px bg-slate-300 border border-slate-300">
+              <button aria-pressed="false" class="devis-opt" data-group="bien" data-value="Maison" type="button">Maison</button>
+              <button aria-pressed="false" class="devis-opt" data-group="bien" data-value="Local pro / immeuble" type="button">Local pro</button>
+            </div>
+          </fieldset>
+          <fieldset class="mb-8">
+            <legend class="text-lg font-bold text-slate-900 mb-3">Quels travaux ?</legend>
+            <div class="grid grid-cols-2 gap-px bg-slate-300 border border-slate-300">
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Réparation / fuite" type="button">Réparation / fuite</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Rénovation de toiture" type="button">Rénovation</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Nettoyage / démoussage" type="button">Démoussage</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Zinguerie / gouttières" type="button">Zinguerie</button>
+            </div>
+          </fieldset>
+          <button class="devis-btn w-full py-4 text-lg font-semibold text-white bg-slate-400 cursor-not-allowed transition-colors" disabled id="devis-next" type="button">Suivant</button>
+        </div>
+        <!-- Étape 2 -->
+        <div class="hidden" data-step="2">
+          <div class="grid grid-cols-2 gap-px bg-slate-300 border border-slate-300 mb-8">
+            <label class="sr-only" for="d-prenom">Prénom</label>
+            <input autocomplete="given-name" class="devis-input" id="d-prenom" name="prenom" placeholder="Prénom *" required type="text"/>
+            <label class="sr-only" for="d-nom">Nom</label>
+            <input autocomplete="family-name" class="devis-input" id="d-nom" name="nom" placeholder="Nom *" required type="text"/>
+            <label class="sr-only" for="d-email">Email</label>
+            <input autocomplete="email" class="devis-input col-span-2" id="d-email" name="email" placeholder="Email *" required type="email"/>
+            <label class="sr-only" for="d-tel">Téléphone</label>
+            <input autocomplete="tel" class="devis-input col-span-2" id="d-tel" inputmode="tel" name="telephone" pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.\-]*\d{2}){4}$" placeholder="Téléphone *" required type="tel"/>
+            <label class="sr-only" for="d-cp">Code postal du chantier</label>
+            <input autocomplete="postal-code" class="devis-input col-span-2" id="d-cp" inputmode="numeric" maxlength="5" name="code_postal" pattern="\d{5}" placeholder="Code postal du chantier *" required type="text"/>
+          </div>
+          <p class="hidden -mt-5 mb-5 text-sm font-medium text-red-600" id="devis-error" role="alert"></p>
+          <div class="grid grid-cols-2 gap-px bg-slate-600">
+            <button class="devis-btn py-4 text-lg font-semibold text-white bg-brand-slateDark hover:bg-black transition-colors" id="devis-back" type="button">Retour</button>
+            <button class="devis-btn py-4 text-lg font-semibold text-white bg-brand-slateDark hover:bg-brand-red transition-colors" id="devis-submit" type="submit">Envoyer</button>
+          </div>
+        </div>
+        <!-- Étape 3 -->
+        <div class="hidden text-center py-4" data-step="3">
+          <div class="mx-auto mb-5 w-16 h-16 rounded-full bg-brand-red text-white flex items-center justify-center"><i class="w-8 h-8" data-lucide="check"></i></div>
+          <p class="text-xl font-bold text-slate-900 mb-2">Merci, votre demande est bien partie !</p>
+          <p class="text-slate-700 mb-7">On vous rappelle rapidement pour caler la visite. Pour une urgence (fuite, tuiles envolées), appelez directement le <a class="font-semibold text-brand-red hover:underline whitespace-nowrap" href="tel:0672449246">06 72 44 92 46</a>.</p>
+          <button class="devis-btn w-full py-4 text-lg font-semibold text-white bg-brand-slateDark hover:bg-black transition-colors" data-close-devis type="button">Fermer</button>
+        </div>
+      </form>
+    </div>
+    <p class="mt-5 text-center text-sm font-medium leading-relaxed text-white">
+      En envoyant ce formulaire, vous acceptez d'être recontacté par téléphone, par SMS ou par email au sujet de votre projet. Vos données ne sont ni revendues ni transmises à des tiers à des fins commerciales, et vous pouvez demander leur suppression à tout moment. <a class="underline hover:text-red-200" href="#">Politique de confidentialité</a>.
+    </p>
+  </div>
+</div>
+
+<!-- ================= SCRIPTS ================= -->
+<script>
+  if (window.lucide) lucide.createIcons();
+
+  // Menu mobile
+  (() => {
+    const btn = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+  })();
+
+  // Curseurs avant / après
+  document.querySelectorAll('.slider-container').forEach(slider => {
+    const overlay = slider.querySelector('.slider-overlay');
+    const handle = slider.querySelector('.slider-handle');
+    const inner = overlay.firstElementChild;
+    const matchWidth = () => { inner.style.width = slider.offsetWidth + 'px'; };
+    matchWidth();
+    window.addEventListener('resize', matchWidth);
+    let dragging = false;
+    const update = e => {
+      const rect = slider.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      const pct = Math.max(0, Math.min(100, x / rect.width * 100));
+      overlay.style.width = pct + '%';
+      handle.style.left = pct + '%';
+    };
+    slider.addEventListener('mousedown', e => { dragging = true; update(e); });
+    window.addEventListener('mousemove', e => { if (dragging) update(e); });
+    window.addEventListener('mouseup', () => { dragging = false; });
+    slider.addEventListener('touchstart', e => { dragging = true; update(e); }, { passive: true });
+    window.addEventListener('touchmove', e => { if (dragging) update(e); }, { passive: true });
+    window.addEventListener('touchend', () => { dragging = false; });
+  });
+</script>
+<script>
+  // ============================================================
+  // ENVOI DU FORMULAIRE
+  // Collez ici l'adresse de votre formulaire Formspree (ou autre),
+  // ex : 'https://formspree.io/f/abcdwxyz'.
+  // Laissé vide : ouvre la messagerie du visiteur vers DEVIS_EMAIL.
+  // ============================================================
+  const FORM_ENDPOINT = '';
+  const DEVIS_EMAIL = 'piterhoffemann@gmail.com';
+
+  (() => {
+    const modal = document.getElementById('devis-modal');
+    const form = document.getElementById('devis-form');
+    const title = document.getElementById('devis-title');
+    const nextBtn = document.getElementById('devis-next');
+    const backBtn = document.getElementById('devis-back');
+    const submitBtn = document.getElementById('devis-submit');
+    const errorBox = document.getElementById('devis-error');
+    const steps = form.querySelectorAll('[data-step]');
+    const titles = { 1: 'Votre projet', 2: 'Vos coordonnées', 3: 'Demande envoyée' };
+    const choice = { bien: '', travaux: '' };
+    let lastTrigger = null, currentStep = 1;
+
+    function showStep(n) {
+      currentStep = n;
+      steps.forEach(s => s.classList.toggle('hidden', s.dataset.step !== String(n)));
+      title.textContent = titles[n];
+      const first = form.querySelector(`[data-step="${n}"] input, [data-step="${n}"] button`);
+      if (first) first.focus({ preventScroll: true });
+    }
+    function openModal(e) {
+      if (e) e.preventDefault();
+      lastTrigger = e ? e.currentTarget : null;
+      if (currentStep === 3) resetForm();
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      showStep(currentStep);
+    }
+    function closeModal() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+      if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+    }
+    function resetForm() {
+      form.reset();
+      choice.bien = choice.travaux = '';
+      form.querySelectorAll('.devis-opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
+      form.querySelectorAll('.devis-input').forEach(i => i.removeAttribute('aria-invalid'));
+      hideError(); updateNext(); currentStep = 1;
+    }
+    function updateNext() {
+      const ready = !!(choice.bien && choice.travaux);
+      nextBtn.disabled = !ready;
+      nextBtn.classList.toggle('bg-slate-400', !ready);
+      nextBtn.classList.toggle('cursor-not-allowed', !ready);
+      nextBtn.classList.toggle('bg-brand-red', ready);
+      nextBtn.classList.toggle('hover:bg-brand-redHover', ready);
+    }
+    function showError(msg) { errorBox.textContent = msg; errorBox.classList.remove('hidden'); }
+    function hideError() { errorBox.textContent = ''; errorBox.classList.add('hidden'); }
+
+    document.querySelectorAll('[data-open-devis]').forEach(el => el.addEventListener('click', openModal));
+    modal.querySelectorAll('[data-close-devis]').forEach(el => el.addEventListener('click', closeModal));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+
+    form.querySelectorAll('.devis-opt').forEach(btn => btn.addEventListener('click', () => {
+      const g = btn.dataset.group;
+      form.querySelectorAll(`.devis-opt[data-group="${g}"]`).forEach(b => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      choice[g] = btn.dataset.value;
+      updateNext();
+    }));
+    nextBtn.addEventListener('click', () => { if (!nextBtn.disabled) showStep(2); });
+    backBtn.addEventListener('click', () => { hideError(); showStep(1); });
+    form.querySelectorAll('.devis-input').forEach(i => i.addEventListener('input', () => i.removeAttribute('aria-invalid')));
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      hideError();
+      let firstInvalid = null;
+      form.querySelectorAll('.devis-input').forEach(input => {
+        input.value = input.value.trim();
+        const ok = input.checkValidity();
+        input.setAttribute('aria-invalid', ok ? 'false' : 'true');
+        if (!ok && !firstInvalid) firstInvalid = input;
+      });
+      if (firstInvalid) {
+        const msgs = {
+          'd-email': 'Vérifiez votre adresse email.',
+          'd-tel': 'Vérifiez votre numéro de téléphone (ex : 06 12 34 56 78).',
+          'd-cp': 'Le code postal doit contenir 5 chiffres.'
+        };
+        showError(firstInvalid.value ? (msgs[firstInvalid.id] || 'Merci de compléter ce champ.') : 'Merci de remplir tous les champs obligatoires.');
+        firstInvalid.focus();
+        return;
+      }
+      if (form.site_web.value) { showStep(3); return; }
+
+      const data = {
+        type_de_bien: choice.bien,
+        travaux: choice.travaux,
+        prenom: form.prenom.value,
+        nom: form.nom.value,
+        email: form.email.value,
+        telephone: form.telephone.value,
+        code_postal: form.code_postal.value,
+        _subject: `Demande de devis toiture – ${form.prenom.value} ${form.nom.value} (${form.code_postal.value})`
+      };
+
+      if (!FORM_ENDPOINT) {
+        const body = [
+          `Type de bien : ${data.type_de_bien}`, `Travaux : ${data.travaux}`, '',
+          `Prénom : ${data.prenom}`, `Nom : ${data.nom}`, `Email : ${data.email}`,
+          `Téléphone : ${data.telephone}`, `Code postal du chantier : ${data.code_postal}`
+        ].join('\n');
+        window.location.href = `mailto:${DEVIS_EMAIL}?subject=${encodeURIComponent(data._subject)}&body=${encodeURIComponent(body)}`;
+        showStep(3);
+        return;
+      }
+
+      submitBtn.disabled = true; submitBtn.textContent = 'Envoi…';
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        showStep(3);
+      } catch (err) {
+        showError("L'envoi n'a pas fonctionné. Réessayez ou appelez-nous au 06 72 44 92 46.");
+      } finally {
+        submitBtn.disabled = false; submitBtn.textContent = 'Envoyer';
+      }
+    });
+  })();
+</script>
+</body>
+</html>
