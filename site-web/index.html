@@ -574,9 +574,9 @@
     });
   })();
 </script>
-<!-- ================= BANDEAU COOKIES + PIXEL META ================= -->
+<!-- ================= BANDEAU COOKIES + PIXEL META + GOOGLE ADS ================= -->
 <div aria-label="Cookies" class="cookie-banner" hidden id="cookie-banner" role="dialog">
-  <p>Nous utilisons un cookie de mesure Facebook (pixel Meta) pour savoir combien de demandes de devis viennent de nos publicités. Il n'est déposé que si vous l'acceptez.</p>
+  <p>Nous utilisons des cookies de mesure Google Ads et Facebook (pixel Meta) pour savoir combien de demandes de devis viennent de nos publicités. Ils ne sont déposés que si vous les acceptez.</p>
   <div class="cookie-actions">
     <button data-cookie-refuse type="button">Refuser</button>
     <button data-cookie-accept type="button">Accepter</button>
@@ -585,6 +585,10 @@
 <script>
   (() => {
     const PIXEL_ID = '1191665407142163';
+    // Google Ads : identifiant du compte et libellés des actions de conversion
+    const GADS_ID = 'AW-18586907638';
+    const GADS_LEAD_LABEL = 'h8HhCPD3ur4dEPbn9p5F'; // Envoi du formulaire de devis
+    const GADS_CALL_LABEL = ''; // Clic sur un numéro de téléphone (à remplir quand l'action sera créée)
     const KEY = 'hoffmann_cookies';
 
     // Provenance du visiteur (ajoutée à chaque demande de devis)
@@ -622,21 +626,45 @@
       fbq('init', PIXEL_ID);
       fbq('track', 'PageView');
     }
-    window.hoffmannLead = () => { if (loaded && window.fbq) fbq('track', 'Lead'); };
+    // Balise Google Ads, chargée seulement après accord
+    let gadsLoaded = false;
+    function loadGoogleAds() {
+      if (gadsLoaded) return;
+      gadsLoaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function(){ dataLayer.push(arguments); };
+      gtag('consent', 'default', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'denied', analytics_storage: 'denied' });
+      gtag('js', new Date());
+      gtag('config', GADS_ID);
+      const t = document.createElement('script');
+      t.async = true;
+      t.src = 'https://www.googletagmanager.com/gtag/js?id=' + GADS_ID;
+      document.head.appendChild(t);
+    }
+    function gadsConversion(label) {
+      if (gadsLoaded && label && window.gtag) gtag('event', 'conversion', { send_to: GADS_ID + '/' + label, value: 1.0, currency: 'EUR' });
+    }
+    function loadTrackers() { loadPixel(); loadGoogleAds(); }
+
+    window.hoffmannLead = () => {
+      if (loaded && window.fbq) fbq('track', 'Lead');
+      gadsConversion(GADS_LEAD_LABEL);
+    };
+    document.querySelectorAll('a[href^="tel:"]').forEach(a => a.addEventListener('click', () => gadsConversion(GADS_CALL_LABEL)));
 
     const banner = document.getElementById('cookie-banner');
     const getChoice = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
     const setChoice = v => { try { localStorage.setItem(KEY, v); } catch (e) {} };
     const choice = getChoice();
-    if (choice === 'accepte') loadPixel();
+    if (choice === 'accepte') loadTrackers();
     else if (choice !== 'refuse') banner.hidden = false;
 
     banner.querySelector('[data-cookie-accept]').addEventListener('click', () => {
-      setChoice('accepte'); banner.hidden = true; loadPixel();
+      setChoice('accepte'); banner.hidden = true; loadTrackers();
     });
     banner.querySelector('[data-cookie-refuse]').addEventListener('click', () => {
       setChoice('refuse'); banner.hidden = true;
-      if (loaded) location.reload();
+      if (loaded || gadsLoaded) location.reload();
     });
     document.querySelectorAll('[data-cookie-settings]').forEach(b => b.addEventListener('click', () => { banner.hidden = false; }));
   })();
